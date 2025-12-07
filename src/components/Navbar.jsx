@@ -1,53 +1,58 @@
 import React from 'react'
 import "../components/Navbar.css"
-import { FcTodoList } from "react-icons/fc";
+import { FcTodoList } from "react-icons/fc"
+import { Link } from 'react-router-dom'
 
 function Navbar() {
   return (
-   <>
-  
-  <nav className="navbar navbar-expand-lg bg">
-  <div className="container">
-    <a className="navbar-brand" href="#"><b> <FcTodoList /> To-Do</b></a>
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li className="nav-item mx-2">
-          <a className="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        
- <li className="nav-item mx-2">
-          <a className="nav-link active" aria-current="page" href="#">About Us</a>
-        </li>
-        
-         <li className="nav-item mx-2">
-          <a className="nav-link active" aria-current="page" href="#">To-Do</a>
-        </li>
-        
+    <>
+      <nav className="navbar navbar-expand-lg bg">
+        <div className="container">
+          <Link className="navbar-brand" to="/">
+            <b><FcTodoList /> To-Do</b>
+          </Link>
 
-        <li className="nav-item mx-2">
-          <a className="nav-link active btn-nav" aria-current="page" href="#"> Sign Up</a>
-        </li>
+          <button className="navbar-toggler" type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
- <li className="nav-item mx-2">
-          <a className="nav-link active btn-nav" aria-current="page" href="#"> Sign In</a>
-        </li>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
 
-         <li className="nav-item">
-          <a className="nav-link active btn-nav" aria-current="page" href="#"> Log out</a>
-        </li>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="/">Home</Link>
+              </li>
 
- <p></p>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="/about">About Us</Link>
+              </li>
 
-      </ul>
-      
-    </div>
-  </div>
-</nav>
+              <li className="nav-item mx-2">
+                <Link className="nav-link" to="#">To-Do</Link>
+              </li>
 
-   </>
+              <li className="nav-item mx-2">
+                <Link className="nav-link btn-nav" to="#">Sign Up</Link>
+              </li>
+
+              <li className="nav-item mx-2">
+                <Link className="nav-link btn-nav" to="#">Sign In</Link>
+              </li>
+
+              <li className="nav-item mx-2">
+                <Link className="nav-link btn-nav" to="#">Log out</Link>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </>
   )
 }
 

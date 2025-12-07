@@ -5,13 +5,21 @@ import Footer from './components/Footer.jsx'
 import About from './components/About.jsx'
 
 
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 function App() {
   return (
     <>
-    <Navbar />
-    <About />
-    {/* <HomePage /> */}
-    <Footer />
+      <Router>
+        <Navbar />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+
+        <Footer />
+      </Router>
     </>
   )
 }
