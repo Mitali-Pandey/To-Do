@@ -33,15 +33,15 @@ function Navbar() {
               </li>
 
               <li className="nav-item mx-2">
-                <Link className="nav-link" to="#">To-Do</Link>
+                <Link className="nav-link" to="/todo">To-Do</Link>
               </li>
 
               <li className="nav-item mx-2">
-                <Link className="nav-link btn-nav" to="#">Sign Up</Link>
+                <Link className="nav-link btn-nav" to="/signup">Sign Up</Link>
               </li>
 
               <li className="nav-item mx-2">
-                <Link className="nav-link btn-nav" to="#">Sign In</Link>
+                <Link className="nav-link btn-nav" to="/signin">Sign In</Link>
               </li>
 
               <li className="nav-item mx-2">
