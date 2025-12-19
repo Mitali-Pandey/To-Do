@@ -7,15 +7,16 @@
   height: 100vh;
 }
 
+ .input-signup{
+  outline: none;
+ }
+
 .sign-up-heading {
   font-size: 100px;
   color: rgb(4, 29, 70);
   opacity: 0.8;
 }
 
-.col-left {
-  border-left: 1px solid black;
-}
 
  .btn-sign-up{
     background-color: rgb(4, 29, 70) ;
@@ -23,3 +24,4 @@
     outline: none;
     border: none;
  }
+
