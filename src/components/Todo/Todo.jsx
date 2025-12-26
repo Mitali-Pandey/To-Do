@@ -1,16 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../Todo/Todo.css";
 import "../Home/HomePage.css";
 import TodoCards from "./TodoCards";
 import { ToastContainer, toast } from "react-toastify";
 import Update from "./Update";
+import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 function Todo() {
+  const userId = sessionStorage.getItem("id");
+  if (!userId) {
+    return <Navigate to="/signin" replace />;
+  }
+
   const [Input, setInput] = useState({ title: "", body: "" });
   const [Array, setArray] = useState([]);
+  const [toUpdateArray, setToUpdateArray] = useState(null);
 
+  // ================= FETCH TASKS =================
+  useEffect(() => {
+    const fetch = async () => {
+      const response = await axios.get(
+        `http://localhost:3000/api/v2/getTask/${userId}`
+      );
+      console.log("FETCHED TASKS:", response.data.list);
+      setArray(response.data.list || []);
+    };
+    fetch();
+  }, [userId]);
+
+  // ================= INPUT =================
   const show = () => {
-    document.getElementById("textarea").style.display = "block";
+    const el = document.getElementById("textarea");
+    if (el) el.style.display = "block";
   };
 
   const change = (e) => {
@@ -18,34 +40,66 @@ function Todo() {
     setInput({ ...Input, [name]: value });
   };
 
-  const submit = () => {
-    
+  // ================= ADD TASK =================
+  const submit = async () => {
     if (Input.title === "" || Input.body === "") {
       toast.error("Title or Body must not be empty!");
-    } else {
-      setArray([...Array, Input]);
-      setInput({ title: "", body: "" });
-      toast.success("Your Task Is Added Successfully");
-      toast.error("Your Task Is NOT saved, Signup!!");
+      return;
     }
+
+    const response = await axios.post(
+      "http://localhost:3000/api/v2/addTask",
+      {
+        title: Input.title,
+        body: Input.body,
+        id: userId,
+      }
+    );
+
+    console.log("TASK ADDED:", response.data.list);
+
+    setArray((prev) => [response.data.list, ...prev]);
+    setInput({ title: "", body: "" });
+    toast.success("Your Task Is Added Successfully");
   };
 
-  const del = (id) => {
-    console.log(id);
-    Array.splice(id, "1");
-    setArray([...Array]);
+  // ================= DELETE =================
+  const del = async (taskId) => {
+    await axios.put(
+      `http://localhost:3000/api/v2/deleteTask/${taskId}`,
+      { id: userId }
+    );
+
+    setArray((prev) => prev.filter((item) => item._id !== taskId));
+    toast.success("Task deleted successfully");
   };
 
-  const dis = (value)=>{
-    console.log(value);
-    document.getElementById("todo-update").style.display = value;
-  }
+  // ================= UPDATE =================
+  const dis = (value) => {
+    const el = document.getElementById("todo-update");
+    if (el) el.style.display = value;
+  };
+
+  const update = (index) => {
+    setToUpdateArray(Array[index]);
+    dis("block");
+  };
+
+  // 🔥 UI UPDATE AFTER SUCCESSFUL UPDATE
+  const onUpdateSuccess = (updatedTask) => {
+    setArray((prev) =>
+      prev.map((item) =>
+        item._id === updatedTask._id ? updatedTask : item
+      )
+    );
+  };
 
   return (
     <>
       <div className="todo">
         <ToastContainer />
 
+        {/* ADD SECTION */}
         <div className="todo-main container d-flex justify-content-center align-items-center flex-column">
           <div className="d-flex flex-column todo-inputs-div w-50 p-1">
             <input
@@ -60,7 +114,6 @@ function Todo() {
 
             <textarea
               id="textarea"
-              type="text"
               placeholder="BODY"
               className="p-2 todo-inputs"
               name="body"
@@ -70,27 +123,33 @@ function Todo() {
           </div>
 
           <div className="w-50 d-flex justify-content-end my-2">
-            <button className="home-btn px-2 py-1" onClick={submit}>
+            <button
+              type="button"
+              className="home-btn px-2 py-1"
+              onClick={submit}
+            >
               ADD
             </button>
           </div>
         </div>
 
+        {/* TASK LIST */}
         <div className="todo-body">
           <div className="container-fluid">
             <div className="row">
-              {Array &&
-                Array.map((item, index) => (
-                  <div className="col-lg-3 col-10 mx-5 my-2" key={index}>
-                    <TodoCards
-                      title={item.title}
-                      body={item.body}
-                      id={index}
-                      delId={del}
-                      display = {dis} 
-                    />
-                  </div>
-                ))}
+              {Array.map((item, index) => (
+                <div className="col-lg-3 col-10 mx-5 my-2" key={item._id}>
+                  <TodoCards
+                    title={item.title}
+                    body={item.body}
+                    id={item._id}
+                    delId={del}
+                    display={dis}
+                    updateId={index}
+                    toBeUpdate={update}
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -98,7 +157,11 @@ function Todo() {
 
       {/* UPDATE SECTION */}
       <div className="todo-update" id="todo-update">
-        <Update display={dis} />
+        <Update
+          display={dis}
+          update={toUpdateArray}
+          onUpdateSuccess={onUpdateSuccess}
+        />
       </div>
     </>
   );

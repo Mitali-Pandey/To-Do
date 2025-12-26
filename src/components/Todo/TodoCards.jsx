@@ -2,7 +2,7 @@ import React from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { GrDocumentUpdate } from "react-icons/gr";
 
-function TodoCards({ title, body, id, delId, display }) {
+function TodoCards({ title, body, id, delId, display, updateId, toBeUpdate }) {
   return (
     <div className="todo-card p-3">
       <div>
@@ -16,7 +16,8 @@ function TodoCards({ title, body, id, delId, display }) {
         <div
           className="d-flex justify-content-center align-item-center card-icon-head px-2 py-1"
           onClick={() => {
-            display("block");   // ✅ FUNCTION CALL (FIX)
+            display("block");  
+            toBeUpdate(updateId)
           }}
         >
           <GrDocumentUpdate className="card-icon" /> Update

@@ -1,16 +1,31 @@
 import React, { useState } from "react";
 import "../SignInUp/Signup.css";
 import HeadingComps from "../HeadingComps";
+import axios from "axios";
+import {useNavigate} from "react-router-dom"
 
 function Signup() {
+  const history = useNavigate();
   const [input, setInput] = useState({ email: "", username: "", password: "" });
   const change = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
 
-  // const submit // 2:55
-
+  const submit = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:3000/api/v1/register", input)
+      .then((response) => {
+        if (response.data.msg === "User Already Exists!!") {
+          alert(response.data.msg);
+        } else {
+          alert(response.data.msg);
+          setInput({ email: "", username: "", password: "" });
+        }
+      });
+      history("/signin");
+  };
 
   return (
     <div className="signup">
