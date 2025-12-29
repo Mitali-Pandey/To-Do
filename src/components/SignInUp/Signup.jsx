@@ -32,7 +32,7 @@ function Signup() {
       <div className="container">
         <div className="row">
           <div className="col-lg-8 column d-flex justify-content-center align-items-center">
-            <div className="d-flex flex-column w-50 p-5">
+            <div className="d-flex flex-column w-50 p-3">
               <input
                 className="p-2 my-2"
                 name="email"
@@ -63,7 +63,7 @@ function Signup() {
               </button>
             </div>
           </div>
-          <div className="col-lg-4 column col-left d-flex justify-content-center align-items-center">
+          <div className=" d-none col-lg-4 column col-left d-lg-flex justify-content-center align-items-center">
             <HeadingComps first="Sign" second="Up" />
           </div>
         </div>

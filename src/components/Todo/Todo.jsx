@@ -17,7 +17,7 @@ function Todo() {
   const [Array, setArray] = useState([]);
   const [toUpdateArray, setToUpdateArray] = useState(null);
 
-  // ================= FETCH TASKS =================
+  //  FETCH TASKS 
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
@@ -29,7 +29,7 @@ function Todo() {
     fetch();
   }, [userId]);
 
-  // ================= INPUT =================
+  // INPUT 
   const show = () => {
     const el = document.getElementById("textarea");
     if (el) el.style.display = "block";
@@ -40,7 +40,7 @@ function Todo() {
     setInput({ ...Input, [name]: value });
   };
 
-  // ================= ADD TASK =================
+  //  ADD TASK 
   const submit = async () => {
     if (Input.title === "" || Input.body === "") {
       toast.error("Title or Body must not be empty!");
@@ -63,7 +63,7 @@ function Todo() {
     toast.success("Your Task Is Added Successfully");
   };
 
-  // ================= DELETE =================
+  //  DELETE 
   const del = async (taskId) => {
     await axios.put(
       `http://localhost:3000/api/v2/deleteTask/${taskId}`,
@@ -74,7 +74,7 @@ function Todo() {
     toast.success("Task deleted successfully");
   };
 
-  // ================= UPDATE =================
+  //  UPDATE 
   const dis = (value) => {
     const el = document.getElementById("todo-update");
     if (el) el.style.display = value;
@@ -85,7 +85,7 @@ function Todo() {
     dis("block");
   };
 
-  // 🔥 UI UPDATE AFTER SUCCESSFUL UPDATE
+  //  UI UPDATE AFTER SUCCESSFUL UPDATE
   const onUpdateSuccess = (updatedTask) => {
     setArray((prev) =>
       prev.map((item) =>
@@ -101,7 +101,7 @@ function Todo() {
 
         {/* ADD SECTION */}
         <div className="todo-main container d-flex justify-content-center align-items-center flex-column">
-          <div className="d-flex flex-column todo-inputs-div w-50 p-1">
+          <div className="d-flex flex-column todo-inputs-div w-lg-50 w-100 p-1">
             <input
               type="text"
               placeholder="TITLE"
@@ -122,7 +122,7 @@ function Todo() {
             />
           </div>
 
-          <div className="w-50 d-flex justify-content-end my-2">
+          <div className="w-lg-50 w-100 d-flex justify-content-end my-2">
             <button
               type="button"
               className="home-btn px-2 py-1"
@@ -138,7 +138,7 @@ function Todo() {
           <div className="container-fluid">
             <div className="row">
               {Array.map((item, index) => (
-                <div className="col-lg-3 col-10 mx-5 my-2" key={item._id}>
+                <div className="col-lg-3 col-11 mx-lg-5 mx-3 my-2" key={item._id}>
                   <TodoCards
                     title={item.title}
                     body={item.body}
