@@ -21,7 +21,7 @@ function Todo() {
   useEffect(() => {
     const fetch = async () => {
       const response = await axios.get(
-        `http://localhost:3000/api/v2/getTask/${userId}`
+        `${window.location.origin}/api/v2/getTask/${userId}`
       );
       console.log("FETCHED TASKS:", response.data.list);
       setArray(response.data.list || []);
@@ -48,7 +48,7 @@ function Todo() {
     }
 
     const response = await axios.post(
-      "http://localhost:3000/api/v2/addTask",
+      "${window.location.origin}/api/v2/addTask",
       {
         title: Input.title,
         body: Input.body,
@@ -66,7 +66,7 @@ function Todo() {
   //  DELETE 
   const del = async (taskId) => {
     await axios.put(
-      `http://localhost:3000/api/v2/deleteTask/${taskId}`,
+      `${window.location.origin}/api/v2/deleteTask/${taskId}`,
       { id: userId }
     );
 

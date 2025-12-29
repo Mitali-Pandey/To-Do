@@ -32,13 +32,13 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* 🏠 HOME — ALWAYS HOME */}
+        {/*  HOME — ALWAYS HOME */}
         <Route path="/" element={<HomePage />} />
 
-        {/* ℹ️ ABOUT */}
+        {/* ℹ ABOUT */}
         <Route path="/about" element={<About />} />
 
-        {/* 🔐 SIGN UP */}
+        {/*  SIGN UP */}
         <Route
           path="/signup"
           element={
@@ -46,7 +46,7 @@ function App() {
           }
         />
 
-        {/* 🔐 SIGN IN */}
+        {/*  SIGN IN */}
         <Route
           path="/signin"
           element={
@@ -54,7 +54,7 @@ function App() {
           }
         />
 
-        {/* ✅ TODO (PROTECTED) */}
+        {/*  TODO (PROTECTED) */}
         <Route
           path="/todo"
           element={

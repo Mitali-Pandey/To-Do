@@ -9,9 +9,9 @@ function HomePage() {
     const userId = sessionStorage.getItem("id");
 
     if (userId) {
-      navigate("/todo");     // ✅ logged in
+      navigate("/todo");     //  logged in
     } else {
-      navigate("/signin");  // ✅ not logged in
+      navigate("/signin");  //  not logged in
     }
   };
 

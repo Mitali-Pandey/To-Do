@@ -8,7 +8,7 @@ function Update({ display, update, onUpdateSuccess }) {
     body: "",
   });
 
-  // ================= SET EXISTING DATA =================
+  //  SET EXISTING DATA 
   useEffect(() => {
     if (update) {
       setInputs({
@@ -18,13 +18,13 @@ function Update({ display, update, onUpdateSuccess }) {
     }
   }, [update]);
 
-  // ================= INPUT CHANGE =================
+  //  INPUT CHANGE 
   const change = (e) => {
     const { name, value } = e.target;
     setInputs({ ...Inputs, [name]: value });
   };
 
-  // ================= SUBMIT UPDATE =================
+  //  SUBMIT UPDATE 
   const submit = async () => {
     if (!update || !update._id) {
       toast.error("Invalid task selected");
@@ -33,11 +33,11 @@ function Update({ display, update, onUpdateSuccess }) {
 
     try {
       await axios.put(
-        `http://localhost:3000/api/v2/updateTask/${update._id}`,
+        `${window.location.origin}/api/v2/updateTask/${update._id}`,
         Inputs
       );
 
-      // 🔥 create updated task locally (backend not returning it)
+      // create updated task locally (backend not returning it)
       const updatedTask = {
         ...update,
         title: Inputs.title,
@@ -46,7 +46,7 @@ function Update({ display, update, onUpdateSuccess }) {
 
       console.log("TASK UPDATED:", updatedTask);
 
-      onUpdateSuccess(updatedTask);   // ✅ NEVER undefined
+      onUpdateSuccess(updatedTask);   //  NEVER undefined
       toast.success("Task updated successfully");
       display("none");
     } catch (error) {

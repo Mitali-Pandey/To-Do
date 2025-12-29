@@ -30,11 +30,11 @@ function Signin() {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3000/api/v1/login",
+        `${window.location.origin}/api/v1/login`,
         input
       );
 
-      // ✅ FIX: handle actual backend response safely
+      //  FIX: handle actual backend response safely
       const userId =
         data?.user?._id ||
         data?.others?._id ||
